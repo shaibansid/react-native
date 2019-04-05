@@ -317,7 +317,7 @@ public class ReactScrollView extends ScrollView implements ReactClippingViewGrou
         getScrollX(), // startX
         getScrollY(), // startY
         0, // velocityX
-        velocityY, // velocityY
+        correctedVelocityY, // velocityY
         0, // minX
         0, // maxX
         0, // minY
