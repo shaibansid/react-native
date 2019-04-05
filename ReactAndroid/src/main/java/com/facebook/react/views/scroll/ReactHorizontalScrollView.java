@@ -276,8 +276,9 @@ public class ReactHorizontalScrollView extends HorizontalScrollView implements
 
   @Override
   public void fling(int velocityX) {
+final int correctedVelocityX = (int)(Math.abs(velocityX) * Math.signum(mOnScrollDispatchHelper.getXFlingVelocity()));
     if (mPagingEnabled) {
-      flingAndSnap(velocityX);
+      flingAndSnap(correctedVelocityX);
     } else if (mScroller != null) {
       // FB SCROLLVIEW CHANGE
 
@@ -292,7 +293,7 @@ public class ReactHorizontalScrollView extends HorizontalScrollView implements
       mScroller.fling(
         getScrollX(), // startX
         getScrollY(), // startY
-        velocityX, // velocityX
+        correctedVelocityX, // velocityX
         0, // velocityY
         0, // minX
         Integer.MAX_VALUE, // maxX
@@ -306,9 +307,9 @@ public class ReactHorizontalScrollView extends HorizontalScrollView implements
 
       // END FB SCROLLVIEW CHANGE
     } else {
-      super.fling(velocityX);
+      super.fling(correctedVelocityX);
     }
-    handlePostTouchScrolling(velocityX, 0);
+    handlePostTouchScrolling(correctedVelocityX, 0);
   }
 
   @Override
